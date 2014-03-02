@@ -395,4 +395,8 @@ public class CommandGroup extends Command {
             }
         }
     }
+    
+    protected void removeAllCommands() {
+        m_commands.removeAllElements();
+    }
 }
