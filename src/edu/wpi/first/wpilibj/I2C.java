@@ -58,6 +58,7 @@ public class I2C extends SensorBase {
      * @return Transfer Aborted... false for success, true for aborted.
      */
     public synchronized boolean transaction(byte[] dataToSend, int sendSize, byte[] dataReceived, int receiveSize) {
+        int count = 0;
         BoundaryException.assertWithinBounds(sendSize, 0, 6);
         BoundaryException.assertWithinBounds(receiveSize, 0, 7);
 
@@ -85,11 +86,16 @@ public class I2C extends SensorBase {
 	m_module.m_fpgaDIO.writeI2CConfig_BitwiseHandshake(m_compatibilityMode);
         byte transaction = m_module.m_fpgaDIO.readI2CStatus_Transaction();
         m_module.m_fpgaDIO.strobeI2CStart();
-        while (transaction == m_module.m_fpgaDIO.readI2CStatus_Transaction()) {
+        while (transaction == m_module.m_fpgaDIO.readI2CStatus_Transaction() && count < 7) {
             Timer.delay(.001);
+            count++;
+//            System.out.print(".");
         }
-        while (!m_module.m_fpgaDIO.readI2CStatus_Done()) {
+        count = 0;
+        while (!m_module.m_fpgaDIO.readI2CStatus_Done() && count < 7) {
             Timer.delay(.001);
+            count++;
+//            System.out.print("*");
         }
         aborted = m_module.m_fpgaDIO.readI2CStatus_Aborted();
         if (receiveSize > 0) {

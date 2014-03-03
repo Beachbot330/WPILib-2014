@@ -44,7 +44,7 @@ public abstract class RobotBase extends MIDlet {
      * the library version
      */
     protected final static String FILE_NAME = "file:///FRC_Lib_Version.ini";
-    protected final static String VERSION_CONTENTS = "Java 2014 Update 0_a";
+    protected final static String VERSION_CONTENTS = "Java 2014 Update 0_b";
     protected final DriverStation m_ds;
     private final Watchdog m_watchdog = Watchdog.getInstance();
 
