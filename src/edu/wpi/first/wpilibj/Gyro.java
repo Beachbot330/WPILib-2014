@@ -34,7 +34,7 @@ public class Gyro extends SensorBase implements PIDSource, ISensor, LiveWindowSe
     int m_center;
     boolean m_channelAllocated;
     AccumulatorResult result;
-    private PIDSourceParameter m_pidSource;
+    PIDSourceParameter m_pidSource;
 
     /**
      * Initialize the gyro.
@@ -44,7 +44,7 @@ public class Gyro extends SensorBase implements PIDSource, ISensor, LiveWindowSe
      * in progress, this is typically done when the robot is first turned on while it's sitting at
      * rest before the competition starts.
      */
-    private void initGyro() {
+    protected void initGyro() {
         result = new AccumulatorResult();
         if (m_analog == null) {
             System.out.println("Null m_analog");
